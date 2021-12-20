@@ -1,0 +1,103 @@
+mordaphna
+318521606
+
+
+=============================
+=      File description     =
+=============================
+
+ascii_art/img_to_char/BrightnessImgCharMatcher.java - The ASCII image convertor.
+ascii_art/Driver.java - Runs the ASCII art.
+ascii_art/Shell.java - The user shell application. Gets commands from the user and does accordingly.
+
+
+
+=============================
+=          Design           =
+=============================
+The program transforms an image into ASCII art.
+BrightnessImgCharMatcher class converts a given image to an ASCII by calculating
+the brightness level of each character and then choosing specific characters
+according to their level of brightness values.
+The output is saved as an HTML file or printed to console.
+
+Shell class interacts with the user. This class accepts commands from the user and does accordingly.
+The commands suggested to the user are:
+printing the chars(show chars), adding/removing chars, res up/down, render to Html output file, or render to console.
+
+Driver class executes the program of the ASCII art. The class gets the image as the program argument,
+creates an instance of Shell to interact with the user.
+
+=============================
+=  Implementation details   =
+
+=============================
+In the BrightnessImgCharMatcher class, I choose to store the character's brightness level in an 
+array and maintain the order of the array throughout the program. I choose to use the data structure
+ of the array because the characters are also given in an array (as the input), and by maintaining
+ the order of the brightness array, I matched every character to its level of brightness value by an index.
+ In addition, the program chooses a character to represent a sub-image in the ASCII image by selecting the 
+character with the closest brightness level to the sub-images average brightness. 
+Thus, after finding the closest level of brightness index, getting its matching character was efficient.
+ 
+Using collections:
+shell class:
+I decided to use a HashSet to store all the chars that the program can use to convert to ASCII.
+Why is set the best choice?
+ Set is a collection with no repetitions. So the user can add a character that already exists in the set, and it won't 
+ cause a problem (the set just won't add the repeated character).
+In addition, the amortize (average or usual case) time complexity for add, remove, operation of HashSet takes O(1) time.
+ So every access to the set is efficient and fast.
+
+BrightnessImgCharMatcher class:
+I decided to use a HashMap to store every  mapping between sub-image
+and its matching average brightness. 
+After the user renders the image for the first time, the program calculates 
+the average brightness of every sub-image and saves it in the mapping. For better resolution,  
+the next time this same action will occur,the program won't need to re-evaluate the average, 
+use the mapping and restore the calculations.  Therefore, in addition to the efficient running time of Hashmap, 
+the code will be more efficient.
+
+Were can the code be more efficient by using Collection?
+In the BrightnessImgCharMatcher, I could have used a HashMap to match every char to its brightness level
+after linear stretching. 
+This way, calculating the linear stretching of every char will be more efficient.
+We could have sorted the level of brightness array  with Collection.Arrays. sort, since we now don't 
+need to preserve the order of the brightness array.
+Instead of going through the array twice (to find the minimal and maximal elements)
+
+=============================
+=    Answers to questions   =
+=============================
+
+uniqueMorseRepresentations-
+1)The algorithm saves every transformation of the words into its morse code representation.
+Then, the algorithm puts all transformations into a set (using set, we will get only the unique words
+ - no repetitions),and finally returns the set's size, which will be the number of different words in morse code.
+
+2)Transforms each word into its morse code representation and adds it into a set. Therefore the time
+ complexity will be O(S)
+ when S is the sum of all the word lengths are in the list.
+
+
+findDuplicate -
+1) Because we know that the array in length n and his values are in the range [1-n], we can treat the
+elements of the array like a linked list. start with the head is nums[0], the next node is nums[nums[0]],
+and so on.
+Therefore, the problem becomes the problem of finding the node where the cycle begins in the linked list. 
+so I wrote an algorithm to find a cycle: 
+The algorithm is taking two-pointers and initializing them to 0.
+Next, run a loop until the first pointer reaches the last element in the array or finds a repeated one.
+In the loop, we pre-increment the second pointer to compare elements with the next one.
+If we don't see the repeated element, we will increase the first pointer as the second pointer will 
+point at the last element 
+and then reposition the second pointer with the first pointer.
+
+2)We assert that the array has precisely one repeated element. Therefore, in the worst case, we run through all 
+the elements in the array, and consequently, the time complexity is O(n).
+In addition, the algorithm doest use extra memory. in other words, the space complexity is O(1).
+
+
+
+
+
